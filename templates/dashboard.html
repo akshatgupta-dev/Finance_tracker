@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ current_user.username }}!</h1>
+    <h2>Your Expenses</h2>
+    <ul>
+        {% for expense in expenses %}
+        <li>{{ expense.amount }} - {{ expense.category }} ({{ expense.date }})</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Your Budgets</h2>
+    <ul>
+        {% for budget in budgets %}
+        <li>{{ budget.category }}: {{ budget.amount }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Add Expense</h3>
+    <form method="POST" action="{{ url_for('add_expense') }}">
+        <input type="number" name="amount" placeholder="Amount" required><br>
+        <input type="text" name="category" placeholder="Category" required><br>
+        <button type="submit">Add Expense</button>
+    </form>
+
+    <h3>Set Budget</h3>
+    <form method="POST" action="{{ url_for('set_budget') }}">
+        <input type="text" name="category" placeholder="Category" required><br>
+        <input type="number" name="amount" placeholder="Budget Amount" required><br>
+        <button type="submit">Set Budget</button>
+    </form>
+
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
